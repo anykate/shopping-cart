@@ -2,18 +2,19 @@
 	<div>
 		<CartTitle :username="username" />
 		<div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
-			<CartList :cart-items="shoppingCartItems" @remove-item="removeItem($event)" />
+			<CartList :cart-items="shoppingCartItems" @remove-item="removeItem($event)"
+				@quantity-update="quantityUpdate($event)" />
 			<OrderSummary :cart-items="shoppingCartItems" />
 		</div>
 	</div>
 </template>
 
 <script setup>
-import CartList from '@/components/CartList.vue'
-import CartTitle from '@/components/CartTitle.vue'
-import OrderSummary from '@/components/OrderSummary.vue'
+import CartList from '@/components/CartList.vue';
+import CartTitle from '@/components/CartTitle.vue';
+import OrderSummary from '@/components/OrderSummary.vue';
 
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 let username = ref('Aniket')
 
@@ -61,8 +62,18 @@ let shoppingCartItems = ref([
 ])
 
 const removeItem = (id) => {
-	let index = shoppingCartItems.value.findIndex(item => item.id = id)
+	let index = shoppingCartItems.value.findIndex(item => item.id === id)
 	shoppingCartItems.value.splice(index, 1)
+}
+
+const quantityUpdate = (val) => {
+	const { id, newQuantity } = val
+	shoppingCartItems.value.some(item => {
+		if (item.id === id) {
+			item.quantity = parseInt(newQuantity)
+			return true
+		}
+	})
 }
 </script>
 
