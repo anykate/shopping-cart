@@ -55,7 +55,8 @@
 						</button>
 
 						<button type="button"
-							class="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500">
+							class="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"
+							@click="$emit('remove-item', item.id)">
 							<svg class="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
 								height="24" fill="none" viewBox="0 0 24 24">
 								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -72,6 +73,7 @@
 
 <script setup>
 defineProps(['item'])
+defineEmits(['remove-item'])
 </script>
 
 <style scoped></style>

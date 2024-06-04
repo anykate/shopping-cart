@@ -2,7 +2,7 @@
 	<div>
 		<CartTitle :username="username" />
 		<div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
-			<CartList :cart-items="shoppingCartItems" />
+			<CartList :cart-items="shoppingCartItems" @remove-item="removeItem($event)" />
 			<OrderSummary :cart-items="shoppingCartItems" />
 		</div>
 	</div>
@@ -59,6 +59,11 @@ let shoppingCartItems = ref([
 		image: 'src/assets/img/Nimbus2000.jpg',
 	},
 ])
+
+const removeItem = (id) => {
+	let index = shoppingCartItems.value.findIndex(item => item.id = id)
+	shoppingCartItems.value.splice(index, 1)
+}
 </script>
 
 <style scoped></style>
